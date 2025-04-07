@@ -3,11 +3,313 @@
  */
 package org.example;
 
-public class App {
+import java.util.Random;
 
+public class App {
+    // criar um tabuleiro de batalha naval
+    // tamanho dos navios : P = 5, E = 4, C = 3, S = 2, N = 2
     public static void main(String[] args) {
 
+        int linhas = 10;
+        int colunas = 10;
+        boolean horizontal;
+        int tamanhoP = 5;
+        int tamanhoE = 4;
+        int tamanhoC = 3;
+        int tamanhoS = 2;
+        int tamanhoN = 2;
 
+        char[][] tabuleiro = new char[10][10];
+        // inicializar o tabuleiro com .
+        for (int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+                tabuleiro[i][j] = '.';
+            }
+        }
+
+        Random random = new Random();
+
+        // gerar um numero aleatorio entre 0 e 1
+        // se o numero for 1, horizontal = true
+        // se o numero for 0, horizontal = false
+        horizontal = random.nextInt(2) == 1;
+        // com o tabuleiro inicializado e a posição inicial do navio gerada, precisamos
+        // inserir o navio nas
+        // posições garantindo que o navio não saia do tabuleiro
+        // o próximo passo é verificar se o navio cabe no tabuleiro
+        // se o navio for horizontal, verificar se a coluna + tamanho do navio - 1 < 10
+        // se o navio for vertical, verificar se a linha + tamanho do navio - 1 < 10
+        // gerar um numero aleatorio entre 0 e 9
+
+        // esses 2 números aleatórios serão a posição inicial do navio
+        int linha = random.nextInt(linhas);
+        int coluna = random.nextInt(colunas);
+        for (int i = 0; i < tamanhoP; i++) {
+            if (horizontal == true) {
+                // se horizontal for true eu quero botar o navio na horizontal, ou seja, manter
+                // a linha e adicionar
+                // +1 na coluna até chegar ao limite de tamanho do navio
+                if (coluna + tamanhoP - 1 < 10) {// SE for horizontal E SE couber printamos o navio
+                    tabuleiro[linha][coluna + i] = 'P';
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1;
+                }
+            } else {// se a horizontal for false eu quero botar o navio na vertical, ou seja, manter
+                // a coluna e adicionar +1 na linha até chegar ao limite de tamanho do navio
+                if (linha + tamanhoP - 1 < 10) {// SE for vertical E SE couber printamos o navio
+                    tabuleiro[linha + i][coluna] = 'P';
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1;
+                }
 
             }
+
+        }
+        // nosso loop de inserção de navios está pronto, basta repetir com os outros
+        // navios
+        // e importante checar se o navio está sob o char . e não sob outro navio
+        linha = random.nextInt(linhas);
+        coluna = random.nextInt(colunas);
+        for (int i = 0; i < tamanhoE; i++) {
+            if (horizontal) {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (coluna + tamanhoE - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoE; j++) {
+                        if (tabuleiro[linha][coluna + j] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoE; j++) {
+                            tabuleiro[linha][coluna + j] = 'E';
+                        }
+                        break; // chegou aqui inseriu com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reinicia o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            } else {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (linha + tamanhoE - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoE; j++) {
+                        if (tabuleiro[linha + j][coluna] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoE; j++) {
+                            tabuleiro[linha + j][coluna] = 'E';
+                        }
+                        break; // navio inserido com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reiniciar o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            }
+
+        }
+        // com o primeiro navio, P, feito, e o segundo, E, feito com as verificações,
+
+        // basta copiar o segundo até o último
+
+        linha = random.nextInt(linhas);
+        coluna = random.nextInt(colunas);
+        for (int i = 0; i < tamanhoC; i++) {
+            if (horizontal) {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (coluna + tamanhoC - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoC; j++) {
+                        if (tabuleiro[linha][coluna + j] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoC; j++) {
+                            tabuleiro[linha][coluna + j] = 'C';
+                        }
+                        break; // chegou aqui inseriu com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reinicia o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            } else {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (linha + tamanhoC - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoC; j++) {
+                        if (tabuleiro[linha + j][coluna] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoC; j++) {
+                            tabuleiro[linha + j][coluna] = 'C';
+                        }
+                        break; // navio inserido com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reiniciar o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            }
+        }
+        // terceiro navio pronto
+        // quarto navio agora
+        linha = random.nextInt(linhas);
+        coluna = random.nextInt(colunas);
+        for (int i = 0; i < tamanhoS; i++) {
+            if (horizontal) {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (coluna + tamanhoS - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoS; j++) {
+                        if (tabuleiro[linha][coluna + j] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoS; j++) {
+                            tabuleiro[linha][coluna + j] = 'S';
+                        }
+                        break; // chegou aqui inseriu com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reinicia o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            } else {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (linha + tamanhoS - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoS; j++) {
+                        if (tabuleiro[linha + j][coluna] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoS; j++) {
+                            tabuleiro[linha + j][coluna] = 'S';
+                        }
+                        break; // navio inserido com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reiniciar o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            }
+        }
+        // quarto navio pronto
+        // quinto navio agora
+        linha = random.nextInt(linhas);
+        coluna = random.nextInt(colunas);
+        for (int i = 0; i < tamanhoN; i++) {
+            if (horizontal) {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (coluna + tamanhoN - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoN; j++) {
+                        if (tabuleiro[linha][coluna + j] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoN; j++) {
+                            tabuleiro[linha][coluna + j] = 'N';
+                        }
+                        break; // chegou aqui inseriu com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reinicia o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            } else {
+                // verificar se o navio cabe e se todas as posições estão livres
+                if (linha + tamanhoN - 1 < 10) {
+                    boolean podeInserir = true;
+                    for (int j = 0; j < tamanhoN; j++) {
+                        if (tabuleiro[linha + j][coluna] != '.') {
+                            podeInserir = false;
+                            break;
+                        }
+                    }
+                    if (podeInserir) {
+                        for (int j = 0; j < tamanhoN; j++) {
+                            tabuleiro[linha + j][coluna] = 'N';
+                        }
+                        break; // navio inserido com sucesso
+                    } else {
+                        linha = random.nextInt(linhas);
+                        coluna = random.nextInt(colunas);
+                        i = -1; // reiniciar o loop
+                    }
+                } else {
+                    linha = random.nextInt(linhas);
+                    coluna = random.nextInt(colunas);
+                    i = -1; // reiniciar o loop
+                }
+            }
+        }
+
+        // imprimir o tabuleiro
+        for (
+
+                int i = 0; i < tabuleiro.length; i++) {
+            for (int j = 0; j < tabuleiro[i].length; j++) {
+                System.out.print(tabuleiro[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
 }

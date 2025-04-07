@@ -7,9 +7,20 @@ public class App {
 
     public static void main(String[] args) {
 
+        if (args.length > 0) {
+            if (args[0].equals("triangulo")) {
+                int segundoArg = Integer.parseInt(args[1]);
+                String repetir = "*".repeat(segundoArg);
+                System.out.println(repetir);
 
-
-
+            } else if (args[0].equals("losango")) {
+                System.out.println("Quadrado");
+            } else if (args[0].equals("retangulo")) {
+                System.out.println("Circulo");
+            } else {
+                System.out.println("Forma não reconhecida");
+            }
+        }
 
     }
 }
