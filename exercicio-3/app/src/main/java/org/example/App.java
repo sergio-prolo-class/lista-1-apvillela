@@ -128,8 +128,8 @@ public class App {
             }
 
         }
-        // com o primeiro navio, P, feito, e o segundo, E, feito com as verificações,
-
+        // com o primeiro navio, P, feito, e o segundo, E, feito com as
+        // verificações,
         // basta copiar o segundo até o último
 
         linha = random.nextInt(linhas);
